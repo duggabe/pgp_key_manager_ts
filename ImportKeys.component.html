@@ -1,0 +1,17 @@
+<p>Import PGP Public Key from screen</p>
+
+<div>
+	<form novalidate #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
+	    <div>
+            Enter email address of key to import:<br>
+            <input type="email" name="p_email"  placeholder="email address" size="64" autofocus ngModel required><br><br>
+	    </div>
+	    <div>
+            <textarea name="p_body" rows="24" cols="128" wrap="soft" placeholder="Paste public key here" ngModel required>
+            </textarea><br><br>
+	        <button type="submit" [disabled]="userForm.invalid">Import</button>
+	        <button type="button" (click)="resetUserForm(userForm)">Clear</button>
+	    </div>
+    <p>Status: {{msg}} </p>
+ 	</form>
+</div>

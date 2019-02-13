@@ -1,0 +1,27 @@
+<p>PGP Key Generation</p>
+<div>
+	<form novalidate #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
+	    <div> 
+	        Your First and Last name:<br>
+            <input type="text" 
+                name="g_name" placeholder="e.g. John Doe" size="48" #userName="ngModel" ngModel required><br><br>
+	    </div>
+	    <div>
+	        Your email address:<br>
+            <input type="email"
+                name="g_email" placeholder="email address" size="48" #userEmail="ngModel"
+                email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" ngModel required><br><br>
+	    </div>	  
+	    <div> 	  
+	        Your PGP passphrase:<br>
+            <input type="text"
+                name="g_pass" placeholder="PGP passphrase" size="48" #userPass="ngModel" ngModel required><br> 
+	    </div>	  
+	    <div> 	  
+            <p>Status: {{msg}} </p>
+            <p><b>NOTE:</b> Generating keys takes <b>several minutes</b> to complete. Be patient!</p>
+	        <button type="submit" [disabled]="userForm.invalid">Submit</button>
+	        <button type="button" (click)="resetUserForm(userForm)">Clear</button>
+	    </div>
+ 	</form>
+</div>

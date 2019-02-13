@@ -1,0 +1,15 @@
+<p>Import PGP Public Key from HKP server</p>
+
+<div>
+	<form novalidate #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
+	    <div>
+            Enter email address to search:<br>
+            <input type="email" name="s_email"  placeholder="email address" size="64" autofocus ngModel required><br>
+	    </div>
+	    <div>
+            <p>Status: {{msg}} </p>
+	        <button type="submit" [disabled]="userForm.invalid">Search</button>
+	        <button type="button" (click)="resetUserForm(userForm)">Clear</button>
+	    </div>
+ 	</form>
+</div>
