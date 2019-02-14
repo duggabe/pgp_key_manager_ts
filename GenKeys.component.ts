@@ -5,7 +5,7 @@ import * as openpgp from 'openpgp';
 
 @Component ({
     selector: 'my-app',
-    templateUrl: 'app/GenKeys.component.html'
+    templateUrl: './GenKeys.component.html'
     })
 export class AppGenKeys
     {

@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 
 @Component ({
     selector: 'my-app',
-    templateUrl: 'app/ImportKeys.component.html'
+    templateUrl: './ImportKeys.component.html'
     })
 export class AppImportKeys
     {
