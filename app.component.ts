@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import {NgForm} from '@angular/forms';
 //  this is the top level navigation panel
 
-@Component ({
-    selector: 'my-app',
+@Component({
+    selector: 'app-root',
     template: `
     <p class="bl_strip">Runbox 7&nbsp;&nbsp;&nbsp;&nbsp;PGP Key Manager</p><br>
     <a [routerLink] = "['/GenKeys']">PGP Key Generation</a>&nbsp;&nbsp;&nbsp;
@@ -19,4 +19,3 @@ import {NgForm} from '@angular/forms';
 export class AppComponent
     {
     }
-    

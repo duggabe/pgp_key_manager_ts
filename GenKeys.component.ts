@@ -4,14 +4,14 @@ import {NgForm} from '@angular/forms';
 import * as openpgp from 'openpgp';
 
 @Component ({
-    selector: 'my-app',
+    selector: 'app-root',
     templateUrl: './GenKeys.component.html'
     })
 export class AppGenKeys
     {
     msg = 'Waiting for input. All fields are required.';
 
-    dcs_encrypt (dString: string, now: number) 
+    dcs_encrypt (dString:string, now:number) 
         {
         var RN_table = [214, 185, 173, 88, 221, 133, 174, 198, 251, 209, 230, 26, 120, 250, 135, 58,
         75, 220, 37, 54, 89, 163, 22, 176, 62, 98, 140, 41, 11, 145, 14, 226,
@@ -76,38 +76,44 @@ export class AppGenKeys
             var g_name = userForm.controls['g_name'].value;
             var g_email = userForm.controls['g_email'].value;
             var g_pass = userForm.controls['g_pass'].value
+            // store encrypted passphrase
+            console.log ("Encrypting passphrase.");
+            this.msg = "Encrypting passphrase.";
+            var now:any = new Date();
+            var _idx:number = now & 0x0ff;
+            var _out:string = this.dcs_encrypt (g_pass, _idx);
+            var pp:any = {
+                ePassPhrase: _out,
+                index: _idx
+                };
+            var passCreds:string = JSON.stringify(pp);
+            var _pgpfn:string = g_email + "_pass.json";
+            localStorage.setItem (_pgpfn, passCreds);
+            console.log (passCreds);
+            // generate keys
             var options =
                 {
                 userIds: [{ name:g_name, email:g_email }],
                 numBits: 4096,                                            // RSA key size
                 passphrase: g_pass
                 };
-             openpgp.generateKey(options).then(function(key:any)
+            var _genKeyDone = openpgp.generateKey(options);
+            _genKeyDone.then(function(key:any)
                 {
-                var pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
-                var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
-                var revocationCertificate = key.revocationCertificate; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
+                var pubkey:any = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
+                var privkey:any = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
+                var revocationCertificate:any = key.revocationCertificate; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
                 // store public key
-                var _pubkfn = (g_email + "_public.asc");
+                var _pubkfn:string = (g_email + "_public.asc");
                 localStorage.setItem (_pubkfn, pubkey);
                 // store private key
-                var _privkfn = (g_email + "_private.asc");
+                var _privkfn:string = (g_email + "_private.asc");
                 localStorage.setItem (_privkfn, privkey);
                 // store revocation certificate
-                var _revkfn = (g_email + "_rev.asc");
+                var _revkfn:string = (g_email + "_rev.asc");
                 localStorage.setItem (_revkfn, revocationCertificate);
-                // store encrypted passphrase
-                var now: any = new Date();
-                var _idx: number = now & 0x0ff;
-                var _out: string = this.dcs_encrypt (g_pass, _idx);
-                var pp = {
-                    ePassPhrase: _out,
-                    index: _idx
-                    };
-                var passCreds: string = JSON.stringify(pp);
-                var _pgpfn: string = g_email + "_pass.json";
-                localStorage.setItem (_pgpfn, passCreds);
                 // Upload to server
+                console.log ("Uploading public key to HKP server ...");
                 this.msg = "Uploading public key to HKP server ...";
                 var hkp = new openpgp.HKP ('https://pgp.mit.edu');
                 hkp.upload (pubkey).then (function (_resp:any)
@@ -121,7 +127,12 @@ export class AppGenKeys
                         this.msg = "Complete.";
                         }
                     });         // end upload
-                });         // end generate
+                });         // end generate .then
+            _genKeyDone.catch (function (error)
+                {
+                console.log ("Key generation error: " + error.message);
+                this.msg = "Key generation error.";
+                });
             }           // end else
         }           // end if
     }           // end class

@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import * as openpgp from 'openpgp';
 
 @Component ({
-    selector: 'my-app',
+    selector: 'app-root',
     templateUrl: 'app/ImportKeysHKP.component.html'
     })
 export class AppImportKeysHKP

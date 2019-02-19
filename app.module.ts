@@ -9,6 +9,7 @@ import { AppListKeys } from './ListKeys.component';
 import { AppImportKeys } from './ImportKeys.component';
 import { AppImportKeysHKP } from './ImportKeysHKP.component';
 import { PageNotFoundComponent } from  './NotFound.component';
+import * as openpgp from 'openpgp';
 
 const appRoutes: Routes = [
     { path: 'GenKeys', component: AppGenKeys },
