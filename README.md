@@ -1,4 +1,4 @@
-#PGP Key Manager written in TypeScript
+# PGP Key Manager written in TypeScript
 
 This code allows the user to create and manage PGP keys in an Angular2 environment.
 
@@ -8,14 +8,14 @@ Public and Private Keys are stored in HTML5 localStorage since the Angular2 "san
 
 A unique feature of this package is encrypting and storing the user's passphrase. When the passphrase is needed for decrypting a message, it can be retrieved from localStorage and decrypted for use.
 
-###Reference code
+### Reference code
 
 This code uses the openpgp project. See GitHub (https://github.com/openpgpjs/openpgpjs).
 
-###Development
+### Development
 
 This code is a module to be included in a larger project such as an email client. This release is a "first cut", and will be revised as my development progresses. I am new to Angular2, TypeScript, as well as GitHub! I welcome suggestions and contributions.
 
-###License
+### License
 
 This package is free software: You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
