@@ -5,6 +5,7 @@ import {NgForm} from '@angular/forms';
 
 @Component({
     selector: 'app-root',
+    styleUrls: ['./dcsmail.css'],
     template: `
     <p class="bl_strip">Runbox 7&nbsp;&nbsp;&nbsp;&nbsp;PGP Key Manager</p><br>
     <a [routerLink] = "['/GenKeys']">PGP Key Generation</a>&nbsp;&nbsp;&nbsp;

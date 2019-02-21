@@ -5,7 +5,7 @@ import * as openpgp from 'openpgp';
 
 @Component ({
     selector: 'app-root',
-    templateUrl: 'app/ImportKeysHKP.component.html'
+    templateUrl: './ImportKeysHKP.component.html'
     })
 export class AppImportKeysHKP
     {
