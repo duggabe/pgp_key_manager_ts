@@ -72,7 +72,6 @@ export class AppGenKeys
             {
             // Initialize openpgp
             openpgp.initWorker({path: 'node_modules/openpgp/dist/openpgp.worker.min.js'});
-            this.msg = "Generating keys ...";
             var g_name = userForm.controls['g_name'].value;
             var g_email = userForm.controls['g_email'].value;
             var g_pass = userForm.controls['g_pass'].value
@@ -91,6 +90,8 @@ export class AppGenKeys
             localStorage.setItem (_pgpfn, passCreds);
             console.log (passCreds);
             // generate keys
+            console.log ("Generating keys...");
+            this.msg = "Generating keys...";
             var options =
                 {
                 userIds: [{ name:g_name, email:g_email }],
