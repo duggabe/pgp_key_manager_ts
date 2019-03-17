@@ -71,7 +71,7 @@ export class AppGenKeys
         else
             {
             // Initialize openpgp
-            openpgp.initWorker({path: 'node_modules/openpgp/dist/openpgp.worker.min.js'});
+            openpgp.initWorker ({ path:'openpgp.worker.js' })       // set the relative web worker path
             var g_name = userForm.controls['g_name'].value;
             var g_email = userForm.controls['g_email'].value;
             var g_pass = userForm.controls['g_pass'].value
@@ -113,11 +113,13 @@ export class AppGenKeys
                 // store revocation certificate
                 var _revkfn:string = (g_email + "_rev.asc");
                 localStorage.setItem (_revkfn, revocationCertificate);
+
                 // Upload to server
                 console.log ("Uploading public key to HKP server ...");
                 this.msg = "Uploading public key to HKP server ...";
                 var hkp = new openpgp.HKP ('https://pgp.mit.edu');
-                hkp.upload (pubkey).then (function (_resp:any)
+                var _uploadDone = hkp.upload (pubkey);
+                _uploadDone.then (function (_resp:any)
                     {
                     if (_resp.status != 200)
                         {
@@ -127,13 +129,19 @@ export class AppGenKeys
                         {
                         this.msg = "Complete.";
                         }
-                    });         // end upload
-                });         // end generate .then
+                    });         // end uploadDone.then
+                _uploadDone.catch (function (_err:any)
+                    {
+                    console.log ("Key upload error: " + _err.message);
+                    this.msg = "Key upload error.";
+                    });     // end _uploadDone.catch
+
+                });         // end _genKeyDone.then
             _genKeyDone.catch (function (error)
                 {
                 console.log ("Key generation error: " + error.message);
                 this.msg = "Key generation error.";
-                });
+                });         // end _genKeyDone.catch
             }           // end else
-        }           // end if
+        }           // end onFormSubmit
     }           // end class

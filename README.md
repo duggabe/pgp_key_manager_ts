@@ -2,7 +2,7 @@
 
 This code allows the user to create and manage PGP keys in an Angular2 environment.
 
-The code was originally written in JavaScript and tested in a Node.js environment. It has been partially tested in an Angular2 CLI environment. However, at the present time, there are no type definitions for the HKP functions, so complete testing is not possible.
+The code was originally written in JavaScript and tested in a Node.js environment. See (https://github.com/duggabe/dcsmail_imap). It has been partially tested in an Angular2 CLI environment.
 
 Public and Private Keys are stored in HTML5 localStorage since the Angular2 "sandbox" does not allow access to the user's file system.
 
